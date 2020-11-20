@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:ps_store/models/add_to_cart.dart';
 import 'package:ps_store/utils/util.dart';
-import 'package:ps_store/productsdetails.dart';
-
-import '../productsdetails.dart';
 
 class Details extends StatefulWidget {
   final Color bgcolor;
@@ -25,6 +23,15 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   int total = 1;
+  bool clicked = false;
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
+
+  //add to cart
+  add() {
+    addToCartController.addToCart(widget.name, widget.image, widget.price, total);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +62,10 @@ class _DetailsState extends State<Details> {
                       ),
                     ],
                   ),
-                  Hero(
-                    tag: widget.tag,
-                    child: Image.asset(
-                      widget.image,
-                      width: 220,
-                      height: 220,
-                    ),
+                  Image.asset(
+                    widget.image,
+                    width: 220,
+                    height: 220,
                   ),
                 ],
               ),
@@ -158,14 +162,24 @@ class _DetailsState extends State<Details> {
                       Spacer(),
                       Row(
                         children: <Widget>[
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              add();
+                              setState(() {
+                                clicked = true;
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: clicked == true
+                                    ? Colors.yellowAccent
+                                    : Colors.white,
+                              ),
+                              child: Icon(Icons.add_shopping_cart),
                             ),
-                            child: Icon(Icons.add_shopping_cart),
                           ),
                           Spacer(),
                           Container(

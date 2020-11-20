@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ps_store/allproducts.dart';
+import 'package:ps_store/models/allproducts.dart';
 import 'package:ps_store/screens/details.dart';
 import 'package:ps_store/utils/util.dart';
 
-class Products extends StatelessWidget {
+class AllProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
